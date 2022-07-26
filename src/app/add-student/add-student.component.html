@@ -1,0 +1,54 @@
+<div class="container-fluid" style="width: 90%">
+    <form [formGroup]="addForm">
+
+        <div class="form-group">
+            <label>First Name:</label>
+            <input class="form-control" type="text" formControlName="FirstName" [class.is-invalid]="addForm.get('FirstName').invalid && addForm.get('FirstName').touched" [(ngModel)]="student.FirstName">
+            <div class="text-danger" *ngIf="addForm.get('FirstName').invalid && addForm.get('FirstName').touched">
+                <small class="text-danger" *ngIf="addForm.get('FirstName').errors?.['required']">First Name is Required</small>
+                <small class="text-danger" *ngIf="addForm.get('FirstName').errors?.['pattern']">First Name can only contains letters</small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Last Name:</label>
+            <input class="form-control" type="text" formControlName="LastName" [class.is-invalid]="addForm.get('LastName').invalid && addForm.get('LastName').touched" [(ngModel)]="student.LastName">
+            <div class="text-danger" *ngIf="addForm.get('LastName').invalid && addForm.get('LastName').touched">
+                <small class="text-danger" *ngIf="addForm.get('LastName').errors?.['required']">Last Name is Required</small>
+                <small class="text-danger" *ngIf="addForm.get('LastName').errors?.['pattern']">Last Name can only contains letters</small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Gender:</label>
+            <select class="form-control" formControlName="Gender" [class.is-invalid]="addForm.get('Gender').invalid && addForm.get('Gender').touched" (change)="values($event)">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+            <small class="text-danger" [class.d-none]="addForm.get('Gender').valid || addForm.get('Gender').untouched">
+                Gender is required
+            </small>
+            {{Gender}}
+        </div>
+
+        <div class="form-group">
+            <label>Department:</label>
+            <select class="form-control" formControlName="Department" [class.is-invalid]="addForm.get('Department').invalid && addForm.get('Department').touched" (change)="onChangeDepartment($event)">
+                <!-- <option *ngFor="let dept of DepartmentName" value="{{dept.DepartmentName}}">{{dept.DepartmentName}}</option> -->
+                <option value="computer engineering">Computer Engineering</option>
+                <option value="information technology">Information Technology</option>
+                <option value="electrical engineering">Electrical Engineering</option>
+                <option value="civil engineering">Civil Engineering</option>
+            </select>
+            <small class="text-danger" [class.d-none]="addForm.get('Department').valid || addForm.get('Department').untouched">
+                Department is required
+            </small>
+            {{Department}}
+        </div>
+
+        <button class="btn btn-primary mr-2" [disabled]="addForm.invalid" (click)="addStudent(); addForm.reset()">Save</button>
+        <button class="btn btn-warning mr-2">Reset</button>
+        <button class="btn btn-danger mr-2">Cancel</button>
+
+    </form>
+</div>
